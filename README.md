@@ -17,12 +17,12 @@ Download it on the Visual Studio Gallery
 2010-2015:
  [http://visualstudiogallery.msdn.microsoft.com/5cc44f63-4ea8-4c17-8aa4-95037a2d32ef](http://visualstudiogallery.msdn.microsoft.com/5cc44f63-4ea8-4c17-8aa4-95037a2d32ef)
 
-2017+: [https://marketplace.visualstudio.com/items?itemName=AlexPendleton.LocateinTFS2017](https://marketplace.visualstudio.com/items?itemName=AlexPendleton.LocateinTFS2017)
+2017+: [https://marketplace.visualstudio.com/items?itemName=AlexPendleton.LocateinTFS2017](https://marketplace.visualstudio.com/items?itemName=Zhenkas.LocateinTFS)
 
 ----------
 ## Changelog
 ### v4.0.0 (Nov 21, 2022)
-- Updated for Visual Studio 2022.
+- Updated for Visual Studio 2022. In forked version by @Zhenkas
 
 
 ## Changelog
