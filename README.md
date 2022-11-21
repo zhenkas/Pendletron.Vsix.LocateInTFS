@@ -22,7 +22,7 @@ Download it on the Visual Studio Gallery
 ----------
 ## Changelog
 ### v4.0.0 (Nov 21, 2022)
-- Updated for Visual Studio 2022. In forked repo by Zhenkas
+- Updated for Visual Studio 2022.
 
 
 ## Changelog
