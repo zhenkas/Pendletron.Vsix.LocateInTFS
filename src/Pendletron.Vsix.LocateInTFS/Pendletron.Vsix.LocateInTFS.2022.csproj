@@ -61,10 +61,9 @@
     <RunCodeAnalysis>true</RunCodeAnalysis>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-	
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Shell.15.0" Version="17.4.33103.184" />
-  </ItemGroup>	  
+  </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.VisualStudio.CommandBars">
       <Guid>{1CBA492E-7263-47BB-87FE-639000619B15}</Guid>
@@ -129,7 +128,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <None Include="VS2017\source.extension.vsixmanifest" />
+    <None Include="VS2022\source.extension.vsixmanifest" />
     <Resource Include="Notes.txt" />
     <Content Include="MIT-LICENSE.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -8,9 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "License", "License", "{8419
 		MIT-LICENSE.txt = MIT-LICENSE.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pendletron.Vsix.LocateInTFS.2017AndLater", "Pendletron.Vsix.LocateInTFS\Pendletron.Vsix.LocateInTFS.2017AndLater.csproj", "{C143CA2E-DC6F-4D70-A9C6-7D3C9E1FB135}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pendletron.Vsix.LocateInTFS.2022", "Pendletron.Vsix.LocateInTFS\Pendletron.Vsix.LocateInTFS.2022.csproj", "{C143CA2E-DC6F-4D70-A9C6-7D3C9E1FB135}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pendletron.Vsix.Core", "Pendletron.Vsix.Core\Pendletron.Vsix.Core.csproj", "{161765BB-4464-4308-8E9A-15F4830D499B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pendletron.Vsix.Core", "Pendletron.Vsix.Core\Pendletron.Vsix.Core.csproj", "{161765BB-4464-4308-8E9A-15F4830D499B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
