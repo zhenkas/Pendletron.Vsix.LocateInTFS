@@ -10,6 +10,8 @@ using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 using Pendletron.Vsix.Core;
 using Pendletron.Vsix.Core.Locaters;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Pendletron.Vsix.LocateInTFS
 {
@@ -25,16 +27,13 @@ namespace Pendletron.Vsix.LocateInTFS
 	/// </summary>
 	// This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
 	// a package.
-	[PackageRegistration(UseManagedResourcesOnly = true)]
 	// This attribute is used to register the informations needed to show the this package
 	// in the Help/About dialog of Visual Studio.
 	[InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
 	// This attribute is needed to let the shell know that this package exposes some menus.
 	[ProvideMenuResource("Menus.ctmenu", 1)]
 	[Guid(GuidList.guidVisualStudio_LocateInTFS_VSIPPkgString)]
-    [ProvideAutoLoad("{f1536ef8-92ec-443c-9ed7-fdadf150da82}")]
-	[ProvideAutoLoad("{8fe2df1d-e0da-4ebe-9d5c-415d40e487b5}")]
-	public sealed class VisualStudio_LocateInTFS_VSIPPackage : Package, IOleCommandTarget, ILocateInTfsVsPackage
+	public sealed class VisualStudio_LocateInTFS_VSIPPackage : AsyncPackage, IOleCommandTarget, ILocateInTfsVsPackage
 	{
 		public static bool _initialized = false;
 		/// <summary>
@@ -51,25 +50,31 @@ namespace Pendletron.Vsix.LocateInTFS
 
         private ITfsLocater LocaterPackage { get; set; }
 
-		/////////////////////////////////////////////////////////////////////////////
-		// Overriden Package Implementation
+        /////////////////////////////////////////////////////////////////////////////
+        // Overriden Package Implementation
 
-		/// <summary>
-		/// Initialization of the package; this method is called right after the package is sited, so this is the place
-		/// where you can put all the initilaization code that rely on services provided by VisualStudio.
-		/// </summary>
-		protected override void Initialize()
-		{
+        /// <summary>
+        /// Initialization of the package; this method is called right after the package is sited, so this is the place
+        /// where you can put all the initilaization code that rely on services provided by VisualStudio.
+        /// </summary>
+        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
+        {
 			_initialized = true;
-			Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
-			base.Initialize();
+			progress.Report(new ServiceProgressData("Initializing \"Located in TFS\"", "Calling base...", 0, 3));
+            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
+			await base.InitializeAsync(cancellationToken, progress);
+
+            progress.Report(new ServiceProgressData("Initializing \"Located in TFS\"", "Creating package...", 1, 3));
 
             LocaterPackage = DerivePackageByVisualStudioVersion();
             if (LocaterPackage != null)
 			{
+                progress.Report(new ServiceProgressData("Initializing \"Located in TFS\"", "Initializing package...", 2, 3));
                 LocaterPackage.Initialize();
 			}
-		}
+            progress.Report(new ServiceProgressData("Initializing \"Located in TFS\"", "DONE", 3, 3));
+
+        }
 
         private ITfsLocater DerivePackageByVisualStudioVersion()
         {
@@ -77,27 +82,6 @@ namespace Pendletron.Vsix.LocateInTFS
             int version = DetermineVisualStudioVersionNumber();
             switch (version)
             {
-                case 10:
-                    results = new Vs2010Locater(this);
-                    break;
-                case 11:
-                    results = new Vs2012DispatchingLocater(this);
-                    break;
-                case 12:
-                    results = new Vs2013DispatchingLocater(this);
-                    break;
-                case 14:
-                    results = new Vs2013DispatchingLocater(this);
-                    break;
-                case 15:
-                    results = new Vs2013DispatchingLocater(this);
-                    break;
-                case 16:
-                    results = new Vs2013DispatchingLocater(this);
-                    break;
-                case 17:
-                    results = new Vs2013DispatchingLocater(this);
-                    break;
                 default:
                     results = new Vs2013DispatchingLocater(this);
                     break;

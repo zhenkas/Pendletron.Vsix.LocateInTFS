@@ -18,7 +18,7 @@ namespace Pendletron.Vsix.Core.Commands
 
 		public IVsPackageIdentifiers PackageIDs { get { return Package.PackageIDs; } }
 
-        protected virtual void AddToMenuCommandService(Microsoft.VisualStudio.Shell.OleMenuCommand cmd)
+        protected virtual void AddToMenuCommandService(BaseCommand cmd)
 		{
 			IMenuCommandService mcs = (IMenuCommandService)Package.GetServiceAsDynamic(typeof(IMenuCommandService));
 			var found = mcs.FindCommand(cmd.CommandID);
@@ -33,7 +33,7 @@ namespace Pendletron.Vsix.Core.Commands
 		{
 			// Create the command for the menu item.
 			CommandID menuCommandID = new CommandID(PackageIDs.guidVisualStudio_LocateInTFS_VSIPCmdSet, CommandID);
-			var menuItem = new Microsoft.VisualStudio.Shell.OleMenuCommand(Execute, menuCommandID);
+			var menuItem = new BaseCommand(Execute, menuCommandID, "Locate in TFS");
 			//menuItem.BeforeQueryStatus += new EventHandler(BeforeQueryStatus);
 			AddToMenuCommandService(menuItem);
 		    return menuItem;

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Pendletron.Vsix.Core": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

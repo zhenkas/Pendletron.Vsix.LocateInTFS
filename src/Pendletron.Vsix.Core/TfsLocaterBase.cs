@@ -239,13 +239,8 @@ namespace Pendletron.Vsix.Core
             if (CommandMap.ContainsKey(commandID))
             {
                 var mappedCommand = CommandMap[commandID];
-                bool isVisible = mappedCommand.BaseCommand.BeforeQueryStatus(mappedCommand.MenuCommand, new EventArgs());
                 wtfisthis |= (uint) OLECMDF.OLECMDF_SUPPORTED | (uint) OLECMDF.OLECMDF_ENABLED;
-                if (!isVisible)
-                {
-                    wtfisthis = (uint)OLECMDF.OLECMDF_DEFHIDEONCTXTMENU | (uint)OLECMDF.OLECMDF_SUPPORTED | (uint)OLECMDF.OLECMDF_INVISIBLE;
-                }
-                result.IsVersionControlled = isVisible;
+                result.IsVersionControlled = true;
             }
             else
             {
