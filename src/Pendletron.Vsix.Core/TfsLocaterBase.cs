@@ -86,8 +86,13 @@ namespace Pendletron.Vsix.Core
 	            var solutionExplorer = new SolutionExplorerLocateCommand(this, Package);
 	            cmd = solutionExplorer.RegisterCommand();
                 CommandMap[solutionExplorer.CommandID] = new CommandItem(solutionExplorer, cmd);
-	        }
-	    }
+
+
+                var workspaceItem = new WorkspaceItemLocateCommand(this, Package);
+                cmd = workspaceItem.RegisterCommand();
+                CommandMap[workspaceItem.CommandID] = new CommandItem(workspaceItem, cmd);
+            }
+        }
 
 
 		virtual public bool IsVersionControlled(string selectedPath)

@@ -62,6 +62,10 @@
 				<!--<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
 				<Parent guid="guidCodeWindowMenusGroup" id="menuidCodeWindowContextMenu"/>-->
 			</Group>
+			<Group guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="WorkspaceItemMenusGroup" priority="0x0602">
+				<!--<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/> -->
+				<Parent guid="guidCodeWindowMenusGroup" id="menuidCodeWindowContextMenu"/>
+			</Group>
 		</Groups>
 
 		<!--Buttons section. -->
@@ -77,20 +81,29 @@
           If you do not want an image next to your command, remove the Icon node or set it to <Icon guid="guidOfficeIcon" id="msotcidNoIcon" />
 -->
 			<Button guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="cmdidLocateInTFS_SolutionExplorer" priority="0x0100" type="Button">
-        <Parent guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="SolutionExplorerMenusGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
+				<Parent guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="SolutionExplorerMenusGroup" />
+				<Icon guid="guidImages" id="bmpPic1" />
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<Strings>
-					<CommandName>cmdidLocateInTFS_SolutionExplorer</CommandName>
+					<CommandName>Locate in TFS</CommandName>
 					<ButtonText>&amp;Locate in TFS</ButtonText>
 				</Strings>
 			</Button>
 			<Button guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="cmdidLocateInTFS_CodeWindow" priority="0x0100" type="Button">
 				<Parent guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="CodeWindowMenusGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
+				<Icon guid="guidImages" id="bmpPic1" />
 				<CommandFlag>DynamicVisibility</CommandFlag>
 				<Strings>
-					<CommandName>cmdidLocateInTFS_CodeWindow</CommandName>
+					<CommandName>Locate in TFS</CommandName>
+					<ButtonText>&amp;Locate in TFS</ButtonText>
+				</Strings>
+			</Button>
+			<Button guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="cmdidLocateInTFS_WorkspaceItem" priority="0x0100" type="Button">
+				<Parent guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="WorkspaceItemMenusGroup" />
+				<Icon guid="guidImages" id="bmpPic1" />
+				<CommandFlag>DynamicVisibility</CommandFlag>
+				<Strings>
+					<CommandName>Locate in TFS</CommandName>
 					<ButtonText>&amp;Locate in TFS</ButtonText>
 				</Strings>
 			</Button>
@@ -121,15 +134,17 @@
 		</CommandPlacement>
 		<CommandPlacement guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="SolutionExplorerMenusGroup" priority="0x107">
 			<Parent guid="guidSolutionExplorerMenu" id="menuidSolutionExplorerAppDesignerFolderMenu" />
-		</CommandPlacement>
-		
-		
+		</CommandPlacement>				
 		<CommandPlacement guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="CodeWindowMenusGroup" priority="0x100">
 			<Parent guid="guidCodeWindowMenusGroup" id="menuidCodeWindowContextMenu" />
 		</CommandPlacement>
 		<CommandPlacement guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="CodeWindowMenusGroup" priority="0x100">
 			<Parent guid="guidCodeWindowMenusGroup" id="menuidEasyMdiContextMenu" />
 		</CommandPlacement>
+		<CommandPlacement guid="guidVisualStudio_LocateInTFS_VSIPCmdSet" id="WorkspaceItemMenusGroup" priority="0x108">
+			<Parent guid="guidWorkspaceItemMenu" id="menuidWorkspaceItemMenu" />
+		</CommandPlacement>
+
 	</CommandPlacements>
 	
 	<Symbols>		
@@ -144,8 +159,10 @@ NameLoc = Item/Folder/Project/Solution
 		<GuidSymbol name="guidVisualStudio_LocateInTFS_VSIPCmdSet" value="{19dabbc7-d73f-48a0-ad3a-582e0349ce21}">
 			<IDSymbol name="SolutionExplorerMenusGroup" value="0x1020" />
 			<IDSymbol name="CodeWindowMenusGroup" value="0x1030" />
-			<IDSymbol name="cmdidLocateInTFS_SolutionExplorer" value="0x0100" />
-			<IDSymbol name="cmdidLocateInTFS_CodeWindow" value="0x0110" />
+			<IDSymbol name="WorkspaceItemMenusGroup" value="0x1040" />
+			<IDSymbol name="cmdidLocateInTFS_SolutionExplorer" value="0x0100" /> <!-- PkgCmdIDList.cmdidLocateInTFS_SolutionExplorer -->
+			<IDSymbol name="cmdidLocateInTFS_CodeWindow" value="0x0110" /> <!-- PkgCmdIDList.cmdidLocateInTFS_CodeWindow -->
+			<IDSymbol name="cmdidLocateInTFS_WorkspaceItem" value="0x0120" /> <!-- PkgCmdIDList.cmdidLocateInTFS_WorkspaceItem -->
 		</GuidSymbol>
 		<GuidSymbol name="guidSolutionExplorerMenu" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
 			<IDSymbol name="menuidSolutionExplorerItemMenu" value="1072" />
@@ -171,6 +188,11 @@ NameLoc = Item/Folder/Project/Solution/Web Project Folder/Web Folder/Web Item/Ap
 
 			<IDSymbol name="cmdidLocateInTFS_CodeWindow" value="0x0110" />
 			
+		</GuidSymbol>
+		<GuidSymbol name="guidWorkspaceItemMenu" value="{CFB400F1-5C60-4F3C-856E-180D28DEF0B7}"> <!-- Workspace Item Menu GUID - hardcoded in VS -->
+			<IDSymbol name="menuidWorkspaceItemMenu" value="2" /> <!-- Workspace Item Menu ID, hardcoded in VS -->
+			
+			<IDSymbol name="cmdidLocateInTFS_WorkspaceItem" value="0x0120" /> <!-- This is out internal ID used for implementation of click event -->	
 		</GuidSymbol>
 
 
