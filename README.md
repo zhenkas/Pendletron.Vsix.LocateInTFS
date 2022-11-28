@@ -2,8 +2,8 @@
 
 Opens up the Source Control Explorer window to the location of the currently selected file. This works from the Solution Explorer and from the active document. It works in Community editions and better. Please note that you must be connected to a TFS instance in your Team Explorer for this extension to work. After installation, you might receive a message that this extension will stop working in a future version. 
 
-Latest version (2017+, incl 2022): 4.0.0 (Nov 21, 2022)
-Latest version (2017+): 3.0.0 (May 13, 2019)
+Latest version (2022): 4.1.0 (Nov 28, 2022)
+Latest version (2017-2019): 3.0.0 (May 13, 2019)
 Latest version (2010-2015): 1.2.1 (August 9, 2015)
 
 ## What it looks like:
@@ -18,6 +18,14 @@ Download it on the Visual Studio Gallery
  [http://visualstudiogallery.msdn.microsoft.com/5cc44f63-4ea8-4c17-8aa4-95037a2d32ef](http://visualstudiogallery.msdn.microsoft.com/5cc44f63-4ea8-4c17-8aa4-95037a2d32ef)
 
 2017+: [https://marketplace.visualstudio.com/items?itemName=Zhenkas.LocateinTFS](https://marketplace.visualstudio.com/items?itemName=Zhenkas.LocateinTFS)
+
+----------
+## Changelog
+### v4.1.0 (Nov 28, 2022)
+- Supports only Visual Studio 2022.
+- Added support for Folder Views (without solution)
+- Converted to async
+- Improved error reporting
 
 ----------
 ## Changelog
