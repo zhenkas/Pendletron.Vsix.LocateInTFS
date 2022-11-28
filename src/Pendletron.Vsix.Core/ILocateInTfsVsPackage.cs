@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Pendletron.Vsix.Core
 {
 	public interface ILocateInTfsVsPackage
 	{
 		IVsPackageIdentifiers PackageIDs { get; }
-		dynamic GetServiceAsDynamic(Type serviceInterfaceType);
-	}
+        Task<T> GetServiceAsync<T>(Type t) where T : class;
+    }
 
     public interface IQueryStatusResult
     {

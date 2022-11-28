@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Pendletron.Vsix.Core
 {
@@ -9,8 +10,9 @@ namespace Pendletron.Vsix.Core
 	{
 		bool IsVersionControlled(string fileSystemPath);
 		void Locate(string localPath);
-		void Initialize();
+		Task InitializeAsync();
 		string GetSelectedPathFromSolutionExplorer();
+        string GetSelectedPathFromFolderView();
         string GetSelectedPathFromActiveDocument();
         int CommandExecute(ICommandExecParams e);
         IQueryStatusResult CommandBeforeQueryStatus(ICommandQueryStatusParams e);

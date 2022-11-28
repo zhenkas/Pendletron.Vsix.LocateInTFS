@@ -12,6 +12,7 @@ using Pendletron.Vsix.Core;
 using Pendletron.Vsix.Core.Locaters;
 using System.Threading.Tasks;
 using System.Threading;
+using EnvDTE80;
 
 namespace Pendletron.Vsix.LocateInTFS
 {
@@ -66,20 +67,20 @@ namespace Pendletron.Vsix.LocateInTFS
 
             progress.Report(new ServiceProgressData("Initializing \"Located in TFS\"", "Creating package...", 1, 3));
 
-            LocaterPackage = DerivePackageByVisualStudioVersion();
+            LocaterPackage = await DerivePackageByVisualStudioVersionAsync();
             if (LocaterPackage != null)
 			{
                 progress.Report(new ServiceProgressData("Initializing \"Located in TFS\"", "Initializing package...", 2, 3));
-                LocaterPackage.Initialize();
+                await LocaterPackage.InitializeAsync();
 			}
             progress.Report(new ServiceProgressData("Initializing \"Located in TFS\"", "DONE", 3, 3));
 
         }
 
-        private ITfsLocater DerivePackageByVisualStudioVersion()
+        private async Task<ITfsLocater> DerivePackageByVisualStudioVersionAsync()
         {
             ITfsLocater results = null;
-            int version = DetermineVisualStudioVersionNumber();
+            int version = await DetermineVisualStudioVersionNumberAsync();
             switch (version)
             {
                 default:
@@ -114,9 +115,9 @@ namespace Pendletron.Vsix.LocateInTFS
             return LocaterPackage.CommandExecute(p);
 	    }
 
-	    public int DetermineVisualStudioVersionNumber()
+	    public async Task<int> DetermineVisualStudioVersionNumberAsync()
 		{
-			var d = GetDteAsDynamic();
+			var d = await GetServiceAsync<DTE2>(typeof(SDTE));
 			string version = d.Version;
 			if (version.Contains("."))
 			{
@@ -127,15 +128,11 @@ namespace Pendletron.Vsix.LocateInTFS
 			return result;
 		}
 
-		public dynamic GetServiceAsDynamic(Type serviceInterfaceType)
+        public async Task<T> GetServiceAsync<T>(Type t) where T : class
 		{
-			return GetService(serviceInterfaceType);
-		}
-
-		public dynamic GetDteAsDynamic()
-		{
-			return GetService(typeof (EnvDTE.DTE));
-		}
+			var service = await GetServiceAsync(t);
+            return service as T;
+        }
 
 		private VsPackageIdentifiers packageIDs = null;
 		public IVsPackageIdentifiers PackageIDs
@@ -152,7 +149,7 @@ namespace Pendletron.Vsix.LocateInTFS
 					packageIDs.guidVisualStudio_LocateInTFS_VSIPPkgString = GuidList.guidVisualStudio_LocateInTFS_VSIPPkgString;
                     packageIDs.cmdidLocateInTFS_SolutionExplorer = PkgCmdIDList.cmdidLocateInTFS_SolutionExplorer;
                     packageIDs.cmdidLocateInTFS_CodeWindow = PkgCmdIDList.cmdidLocateInTFS_CodeWindow;
-					packageIDs.cmdidLocateInTFS_WorkspaceItem = PkgCmdIDList.cmdidLocateInTFS_WorkspaceItem;
+					packageIDs.cmdidLocateInTFS_FolderView = PkgCmdIDList.cmdidLocateInTFS_FolderView;
 				}
 				return packageIDs;
 			}

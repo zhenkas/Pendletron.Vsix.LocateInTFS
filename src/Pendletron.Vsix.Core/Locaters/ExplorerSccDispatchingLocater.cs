@@ -66,10 +66,35 @@ namespace Pendletron.Vsix.LocateInTFS
 
 	    protected virtual ServerItemAndWorkspace GetServerItemAndWorkspaceForLocalPath(string localPath)
 	    {
+            dynamic vcs;
             try
             {
-                dynamic vcs = HatterasPackage.HatterasService.VersionControlServer;
-                dynamic workspace = vcs.GetWorkspace(localPath);
+                vcs = HatterasPackage.HatterasService.VersionControlServer;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"TFS Source Control is not accessible", ex);
+            }
+            if (vcs == null)
+            {
+                throw new Exception("TFS Source Control is not accessible");
+            }
+
+            dynamic workspace;
+            try
+            {
+                workspace = vcs.GetWorkspace(localPath);
+                if (workspace == null)
+                {
+                    throw new Exception("Workspace not found");
+                }                
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Unable to locate workspace for: {localPath}", ex);
+            }        
+            try
+            {
                 string serverPath = workspace.TryGetServerItemForLocalItem(localPath);
                 return new ServerItemAndWorkspace(workspace, serverPath);
             }
@@ -77,7 +102,6 @@ namespace Pendletron.Vsix.LocateInTFS
             {
                 throw new Exception($"Unable to locate item in tfs: {localPath}", ex);
             }
-
         }
 
 

@@ -12,7 +12,7 @@ namespace Pendletron.Vsix.Core
 
 		uint cmdidLocateInTFS_SolutionExplorer { get; }
         uint cmdidLocateInTFS_CodeWindow { get; }
-        uint cmdidLocateInTFS_WorkspaceItem { get; }
+        uint cmdidLocateInTFS_FolderView { get; }
         uint cmdidQueryStatus { get; }
 		uint cmdidSolutionExplorer { get; }
 	}
@@ -27,7 +27,7 @@ namespace Pendletron.Vsix.Core
 
 		virtual public uint cmdidLocateInTFS_SolutionExplorer { get; set; }
 		virtual public uint cmdidLocateInTFS_CodeWindow { get; set; }
-        virtual public uint cmdidLocateInTFS_WorkspaceItem { get; set; }
+        virtual public uint cmdidLocateInTFS_FolderView { get; set; }
         virtual public uint cmdidQueryStatus { get; set; }
 		virtual public uint cmdidSolutionExplorer { get; set; }
 	}

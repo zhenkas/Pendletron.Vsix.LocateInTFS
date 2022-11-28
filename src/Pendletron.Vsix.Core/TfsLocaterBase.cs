@@ -11,6 +11,9 @@ using System.Collections.Generic;
 using Pendletron.Vsix.Core.Commands;
 using Pendletron.Vsix.Core.Wrappers;
 using Pendletron.Vsix.LocateInTFS;
+using System.Threading.Tasks;
+using Microsoft.VisualStudio.Shell.Interop;
+using System.Runtime.InteropServices;
 
 namespace Pendletron.Vsix.Core
 {
@@ -48,9 +51,11 @@ namespace Pendletron.Vsix.Core
         public ILocateInTfsVsPackage Package { get; set; }
         public TimeSpan ScrollToDispatchLagTime { get; set; }
 
-		public void Initialize()
+		public async Task InitializeAsync()
 		{
-            RegisterCommands();
+			DTEInstance = await Package.GetServiceAsync<DTE2>(typeof(SDTE));
+            MonitorSelection = await Package.GetServiceAsync<IVsMonitorSelection>(typeof(SVsShellMonitorSelection));
+            await RegisterCommandsAsync();
 		}
 
         public Dictionary<int, CommandItem> CommandMap { get; set; }
@@ -72,24 +77,24 @@ namespace Pendletron.Vsix.Core
             public MenuCommand MenuCommand { get; set; }
 	    }
 
-	    public void RegisterCommands()
+	    public async Task RegisterCommandsAsync()
 	    {
-	        var commandService = Package.GetServiceAsDynamic(typeof (IMenuCommandService)) as IMenuCommandService;
+			var commandService = await Package.GetServiceAsync<IMenuCommandService>(typeof(IMenuCommandService));
 	        if (commandService != null)
 	        {
                 CommandMap = new Dictionary<int, CommandItem>();
 	            var activeWindow = new ActiveWindowLocateCommand(this, Package);
-                MenuCommand cmd = activeWindow.RegisterCommand();
+                MenuCommand cmd = await activeWindow.RegisterCommandAsync();
 	            CommandMap[activeWindow.CommandID] = new CommandItem(activeWindow, cmd);
 
 	            
 	            var solutionExplorer = new SolutionExplorerLocateCommand(this, Package);
-	            cmd = solutionExplorer.RegisterCommand();
+	            cmd = await solutionExplorer.RegisterCommandAsync();
                 CommandMap[solutionExplorer.CommandID] = new CommandItem(solutionExplorer, cmd);
 
 
-                var workspaceItem = new WorkspaceItemLocateCommand(this, Package);
-                cmd = workspaceItem.RegisterCommand();
+                var workspaceItem = new FolderViewLocateCommand(this, Package);
+                cmd = await workspaceItem.RegisterCommandAsync();
                 CommandMap[workspaceItem.CommandID] = new CommandItem(workspaceItem, cmd);
             }
         }
@@ -110,24 +115,8 @@ namespace Pendletron.Vsix.Core
 			return isVersionControlled;
 		}
 
-		private DTE2 _dteInstance = null;
-		public DTE2 DTEInstance
-		{
-			get
-			{
-				if (_dteInstance == null)
-				{
-					_dteInstance = GetDTEService();
-				}
-				return _dteInstance;
-			}
-			set { _dteInstance = value; }
-		}
-
-		virtual protected DTE2 GetDTEService()
-		{
-			return Package.GetServiceAsDynamic(typeof(DTE)) as DTE2;
-		}
+		public DTE2 DTEInstance;
+        public IVsMonitorSelection MonitorSelection;
 
 		virtual public UIHierarchyItem GetSelectedUIHierarchy(UIHierarchy solutionExplorer)
 		{
@@ -199,6 +188,25 @@ namespace Pendletron.Vsix.Core
 			return localPath;
 		}
 
+        virtual public string GetSelectedPathFromFolderView()
+		{
+            int res;
+            res = MonitorSelection.GetCurrentSelection(out IntPtr hierPtr, out uint itemId, out IVsMultiItemSelect multiSelect, out IntPtr containerPtr);
+			if (res != 0)
+			{
+				throw new Exception("Failed to get current selection");
+            }
+            IVsHierarchy hierarchy = (IVsHierarchy)Marshal.GetUniqueObjectForIUnknown(hierPtr);
+            ISelectionContainer selectionContainer = (ISelectionContainer)Marshal.GetUniqueObjectForIUnknown(containerPtr);
+            Marshal.Release(hierPtr);
+            Marshal.Release(containerPtr);
+            res = hierarchy.GetCanonicalName(itemId, out string canonicalName);
+			if (res != 0) 
+			{
+                throw new Exception("Failed to get selected item path");
+            }
+			return canonicalName;
+        }
         public abstract string GetServerPathFromLocal(string localFilePath);
 
 		virtual public void Locate(string localPath)
