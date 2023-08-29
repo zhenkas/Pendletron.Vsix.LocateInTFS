@@ -26,13 +26,17 @@ Download it on the Visual Studio Gallery
 
 ----------
 ## Changelog
+### v4.2.0 (Nov 28, 2022)
+- Compile with latest SDK version
+- Fix root folder view
+- Fix vsix local debugging issue
+
 ### v4.1.0 (Nov 28, 2022)
 - Supports only Visual Studio 2022.
 - Added support for Folder Views (without solution)
 - Converted to async
 - Improved error reporting
 
-## Changelog 
 ### v4.0.0 (Nov 21, 2022)
 - Updated for Visual Studio 2022. In forked version by @Zhenkas
 
