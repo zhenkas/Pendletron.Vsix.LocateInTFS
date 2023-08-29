@@ -106,8 +106,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.32112.339" ExcludeAssets="runtime" />
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.7.2189" />
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.*" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.*" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Pendletron.Vsix.Core\Pendletron.Vsix.Core.csproj">
