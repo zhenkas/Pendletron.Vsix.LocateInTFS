@@ -32,13 +32,13 @@ Download it on the Visual Studio Gallery
 - Converted to async
 - Improved error reporting
 
-----------
-## Changelog
+## Changelog 
 ### v4.0.0 (Nov 21, 2022)
 - Updated for Visual Studio 2022. In forked version by @Zhenkas
 
-
-## Changelog
+----------
+_Below changes from original repo [https://github.com/alexcpendleton/Pendletron.Vsix.LocateInTFS](https://github.com/alexcpendleton/Pendletron.Vsix.LocateInTFS)_
+## Changelog 
 ### v3.0.0 (May 13, 2019)
 - Updated for Visual Studio 2019. Thanks to [BoredTweak](https://github.com/BoredTweak) for the pull request. Thank you for your assistance and patience. :)
 
