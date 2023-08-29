@@ -205,6 +205,10 @@ namespace Pendletron.Vsix.Core
 			{
                 throw new Exception("Failed to get selected item path");
             }
+			if (canonicalName == null)
+			{
+				canonicalName = DTEInstance.Solution.FullName;
+            }
 			return canonicalName;
         }
         public abstract string GetServerPathFromLocal(string localFilePath);
@@ -236,7 +240,6 @@ namespace Pendletron.Vsix.Core
             if (CommandMap.ContainsKey(commandID))
             {
                 var mappedCommand = CommandMap[commandID];
-                //var x = Microsoft.VisualStudio.Shell.Interop.Constants.OLECMDERR_E_UNKNOWNGROUP;
                 mappedCommand.BaseCommand.Execute(mappedCommand.MenuCommand, new EventArgs());
             }
             return 0;

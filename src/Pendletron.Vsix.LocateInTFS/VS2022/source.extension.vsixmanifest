@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="8A914560-72B5-499C-B81D-F6AE214B6B5C" Version="4.1.0" Language="en-US" Publisher="Zhenkas" />
+        <Identity Id="8A914560-72B5-499C-B81D-F6AE214B6B5C" Version="4.1.1" Language="en-US" Publisher="Zhenkas" />
         <DisplayName>Locate in TFS 2022</DisplayName>
         <Description xml:space="preserve">Opens the Source Control Explorer for the currently selected item in the solution/folder explorer or active document. Source is available at the More Info Url.</Description>
         <MoreInfo>https://github.com/zhenkas/Pendletron.Vsix.LocateInTFS</MoreInfo>
