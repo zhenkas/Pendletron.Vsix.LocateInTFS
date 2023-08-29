@@ -26,7 +26,7 @@ Download it on the Visual Studio Gallery
 
 ----------
 ## Changelog
-### v4.2.0 (Nov 28, 2022)
+### v4.2.0 (Aug 30, 2023)
 - Compile with latest SDK version
 - Fix root folder view
 - Fix vsix local debugging issue
