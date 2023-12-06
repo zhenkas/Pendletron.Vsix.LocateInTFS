@@ -73,7 +73,7 @@ namespace Pendletron.Vsix.LocateInTFS
             }
             catch (Exception ex)
             {
-                throw new Exception($"TFS Source Control is not accessible", ex);
+                throw new Exception($"TFS Source Control is not accessible. Exception: {ex}", ex);
             }
             if (vcs == null)
             {

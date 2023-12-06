@@ -11,19 +11,26 @@ namespace Pendletron.Vsix.Core.Wrappers
 		public dynamic _wrapped = null;
 		public Assembly _vcAssembly = null;
 
-		public HatPackage() {
+        public HatPackage() {
 			_vcAssembly = Assembly.Load("Microsoft.VisualStudio.TeamFoundation.VersionControl");
-			Type t = _vcAssembly.GetType("Microsoft.VisualStudio.TeamFoundation.VersionControl.HatPackage");
-			var prop = t.GetProperty("Instance", BindingFlags.NonPublic | BindingFlags.Static);
-			object instance = prop.GetValue(null, null);
-			_wrapped = new AccessPrivateWrapper(instance);
 		}
 
 		private dynamic _hatterasService = null;
 		public dynamic HatterasService
 		{
 			get {
-				if (_hatterasService == null)
+                if (_wrapped == null)
+                {
+                    Type t = _vcAssembly.GetType("Microsoft.VisualStudio.TeamFoundation.VersionControl.HatPackage");
+                    var prop = t.GetProperty("Instance", BindingFlags.NonPublic | BindingFlags.Static);
+                    object instance = prop.GetValue(null, null);
+					if (instance == null)
+					{
+						throw new Exception("Make sure VS is configured to work with TFS");
+					}
+                    _wrapped = new AccessPrivateWrapper(instance);
+                }
+                if (_hatterasService == null)
 				{
 					_hatterasService = new AccessPrivateWrapper(_wrapped.HatterasService);
 				}
